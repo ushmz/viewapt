@@ -3,5 +3,9 @@ import { defineConfig } from "wxt";
 // See https://wxt.dev/api/config.html
 export default defineConfig({
 	extensionApi: "chrome",
-	modules: ["@wxt-dev/module-react"],
+	modules: [ "@wxt-dev/module-react", "@wxt-dev/i18n/module" ],
+	manifest: {
+		permissions: ["storage"],
+    default_locale: "en",
+	},
 });
