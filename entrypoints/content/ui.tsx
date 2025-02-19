@@ -1,4 +1,5 @@
-import PresetButton from "@/entrypoints/content/components/parts/preset-button";
+import Button from "@/entrypoints/content/components/parts/button";
+import { ChevronDown } from "@/entrypoints/content/components/parts/icon";
 import PresetSavePopover from "@/entrypoints/content/components/preset-save-popover";
 import {
 	clearCalendars,
@@ -47,9 +48,9 @@ export const PresetSelector: React.FC<PresetSelectorProps> = ({}) => {
 	const load = async () => {
 		const { myCalendars, otherCalendars } = getAllCalendars();
 		setCalendars([
-      ...myCalendars.map((cal) => cal.toJSON()),
-      ...otherCalendars.map((cal) => cal.toJSON()),
-    ]);
+			...myCalendars.map((cal) => cal.toJSON()),
+			...otherCalendars.map((cal) => cal.toJSON()),
+		]);
 
 		(async () => {
 			const presets = await loadPresets();
@@ -64,40 +65,53 @@ export const PresetSelector: React.FC<PresetSelectorProps> = ({}) => {
 	}, [activePreset]);
 
 	return (
-		<div className="viewapt grid grid-flow-col" aria-label="viewapt">
-			<PresetButton
-				preset={presets.primary}
-				placeholderText={i18n.t("presets.primary")}
+		<div
+			className="viewapt h-[44px] grid grid-flow-col gap-2 z-999 max-w-1/2 items-center"
+			aria-label="viewapt"
+		>
+			<Button
+				className="h-[36px]"
 				onClick={() => {
 					if (!presets.primary) return;
 					setActivePreset(presets.primary);
 					applyPreset(presets.primary);
 				}}
-			/>
-			<PresetButton
-				preset={presets.secondary}
-				placeholderText={i18n.t("presets.secondary")}
+			>
+				{presets.primary?.name || i18n.t("presets.primary")}
+			</Button>
+			<Button
+				className="h-[36px]"
 				onClick={() => {
 					if (!presets.secondary) return;
 					setActivePreset(presets.secondary);
 					applyPreset(presets.secondary);
 				}}
-			/>
-			<PresetButton
-				preset={presets.tertiary}
-				placeholderText={i18n.t("presets.tertiary")}
+			>
+				{presets.secondary?.name || i18n.t("presets.secondary")}
+			</Button>
+			<Button
+				className="h-[36px]"
 				onClick={() => {
 					if (!presets.tertiary) return;
 					setActivePreset(presets.tertiary);
 					applyPreset(presets.tertiary);
 				}}
-			/>
+			>
+				{presets.tertiary?.name || i18n.t("presets.tertiary")}
+			</Button>
 			<PresetSavePopover
 				calendars={calendars}
-				selectedCalendars={getSelectedCalendars().map((cal) => cal.toJSON())}
-				selectedDatePeriod={getCurrentView()}
+				getSelectedCalendars={() =>
+					getSelectedCalendars().map((cal) => cal.toJSON())
+				}
+				getCurrentView={() => getCurrentView() || "day"}
 				onConfirm={load}
-			/>
+			>
+				<span>{i18n.t("presets.save")}</span>
+				<span className="pl-2">
+					<ChevronDown />
+				</span>
+			</PresetSavePopover>
 		</div>
 	);
 };

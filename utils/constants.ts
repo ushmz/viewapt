@@ -19,4 +19,13 @@ export const COLORS: { [key: string]: ITheme } = {
 		light: "#ffffff",
 		dark: "#1E1F20",
 	},
+	content: {
+		light: "#E9EEF6",
+		dark: "#37393B",
+		// dark: "#282a2c",
+	},
+	highlight: {
+		light: "#E8EAED",
+		dark: "#3C4043",
+	},
 };

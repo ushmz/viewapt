@@ -1,7 +1,8 @@
+import Button from "@/entrypoints/content/components/parts/button";
 import { CalendarListBox } from "@/entrypoints/content/components/parts/calendar-select";
-import { ChevronDown } from "@/entrypoints/content/components/parts/icon";
 import { DatePeriodListBox } from "@/entrypoints/content/components/parts/date-period-select";
 import { Calendar, DatePeriod } from "@/types/calendar";
+import { PresetKey } from "@/utils/storage";
 import {
 	Popover,
 	PopoverButton,
@@ -10,42 +11,41 @@ import {
 } from "@headlessui/react";
 import { i18n } from "#i18n";
 import React, { Fragment } from "react";
-import { PresetKey } from "@/utils/storage";
 
 type PresetSavePopoverProps = {
+	children?: React.ReactNode;
+} & {
 	calendars: Calendar[];
-	selectedCalendars: Calendar[];
-	selectedDatePeriod: DatePeriod | null;
+	getSelectedCalendars: () => Calendar[];
+	getCurrentView: () => DatePeriod;
 	onConfirm: () => void;
 };
 
 const PresetSavePopover: React.FC<PresetSavePopoverProps> = ({
+	children,
 	calendars,
-	selectedCalendars,
-	selectedDatePeriod,
+	getSelectedCalendars,
+	getCurrentView,
 	onConfirm,
 }) => {
 	const [title, setTitle] = useState<string>("");
-	const [choicedCalendars, setChoicedCalendars] =
-		useState<Calendar[]>(selectedCalendars);
-	const [datePeriod, setDatePeriod] = useState<DatePeriod>(
-		selectedDatePeriod ?? "day",
-	);
+	const [choicedCalendars, setChoicedCalendars] = useState<Calendar[]>([]);
+	const [datePeriod, setDatePeriod] = useState<DatePeriod>("day");
 	const [presetKey, setPresetKey] = useState<PresetKey>("primary");
-	useEffect(() => {
-		console.info(`[viewapt] Preset key: ${presetKey}`);
-	}, [presetKey]);
 
 	return (
-		<div className="viewapt" aria-label="viewapt-preset-popover">
-			<Popover className="relative z-999">
+		<div aria-label="viewapt-preset-popover">
+			<Popover className="relative">
 				{({ open }) => (
 					<>
 						<PopoverButton
-							className={`${open ? "text-white" : "text-white/90"} group flex items-center rounded-md px-3 py-2 text-base font-medium hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75`}
+							className={`group flex items-center h-[36px] hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75 rounded-3xl px-[12px] bg-content-light dark:bg-content-dark hover:bg-highlight-light dark:hover:bg-highlight-dark`}
+							onClick={() => {
+								setChoicedCalendars(getSelectedCalendars());
+								setDatePeriod(getCurrentView());
+							}}
 						>
-							<span>{i18n.t("presets.save")}</span>
-							<ChevronDown />
+							{children}
 						</PopoverButton>
 						<Transition
 							as={Fragment}
@@ -56,10 +56,10 @@ const PresetSavePopover: React.FC<PresetSavePopoverProps> = ({
 							leaveFrom="opacity-100 translate-y-0"
 							leaveTo="opacity-0 translate-y-1"
 						>
-							<PopoverPanel className="absolute left-1/2 z-10 mt-3 rounded-3xl w-screen max-w-sm -translate-x-1/2 transform px-4 sm:px-0 dark:bg-[#1e1f20]">
+							<PopoverPanel className="absolute left-1/2 z-9999 mt-2 rounded-3xl w-screen max-w-sm -translate-x-1/2 transform dark:bg-[#1e1f20]">
 								{({ close }) => (
-									<div className="overflow-hidden ring-1 ring-black/5">
-										<div className="relative grid grid-flow-row gap-8 p-7">
+									<div className="overflow-hidden ring-1 ring-black/5 px-7 pt-7 pb-5">
+										<div className="relative grid grid-flow-row gap-8 pb-2">
 											<div>
 												<input
 													autoFocus
@@ -82,7 +82,7 @@ const PresetSavePopover: React.FC<PresetSavePopoverProps> = ({
 											</div>
 											<div>
 												<DatePeriodListBox
-													value={datePeriod}
+													value={datePeriod || "day"}
 													onChange={(view) => setDatePeriod(view)}
 												/>
 											</div>
@@ -128,10 +128,13 @@ const PresetSavePopover: React.FC<PresetSavePopoverProps> = ({
 												</div>
 											</div>
 										</div>
-										<div className="p-4 flex justify-end">
-											<button
-												className="ml-4 bg-[#0b57d0] dark:bg-[#a8c7fa] dark:text-[#062e6f] px-3 py-2 rounded-md"
+										<div className="flex justify-end pt-3">
+											<Button
+												className="bg-primary-light dark:bg-primary-dark hover:bg-primary-light dark:hover:bg-primary-dark text-primary-light-text dark:text-primary-dark-text"
 												onClick={() => {
+													// TODO: Show error message when title is empty
+													if (!title) return;
+
 													savePreset(presetKey, {
 														name: title,
 														calendars: choicedCalendars,
@@ -145,8 +148,8 @@ const PresetSavePopover: React.FC<PresetSavePopoverProps> = ({
 														});
 												}}
 											>
-												{i18n.t("presets.save")}
-											</button>
+												<span className="px-4">{i18n.t("presets.save")}</span>
+											</Button>
 										</div>
 									</div>
 								)}
