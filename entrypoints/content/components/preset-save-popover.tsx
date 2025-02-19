@@ -39,7 +39,7 @@ const PresetSavePopover: React.FC<PresetSavePopoverProps> = ({
 				{({ open }) => (
 					<>
 						<PopoverButton
-							className={`group flex items-center h-[36px] hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75 rounded-3xl px-[12px] bg-content-light dark:bg-content-dark hover:bg-highlight-light dark:hover:bg-highlight-dark`}
+							className={`group flex items-center h-[36px] border-none hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75 rounded-3xl px-[12px] bg-content-light dark:bg-content-dark hover:bg-highlight-light dark:hover:bg-highlight-dark`}
 							onClick={() => {
 								setChoicedCalendars(getSelectedCalendars());
 								setDatePeriod(getCurrentView());
@@ -68,7 +68,7 @@ const PresetSavePopover: React.FC<PresetSavePopoverProps> = ({
 													onChange={(e) => setTitle(e.target.value)}
 													placeholder={i18n.t("popover.placeholder")}
 													aria-label="Preset Title"
-													className="w-full text-lg appearance-none bg-transparent border-b-2 border-[#444746] dark:border-[#444746] focus:border-[#0b57d0] dark:focus:border-[#a8c7fa] outline-none transition-all"
+													className="w-full text-lg appearance-none bg-transparent border-t-0 border-l-0 border-r-0 border-b-2 border-[#444746] dark:border-[#444746] focus:border-[#0b57d0] dark:focus:border-[#a8c7fa] outline-none transition-all"
 												/>
 											</div>
 											<div>

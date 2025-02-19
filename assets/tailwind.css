@@ -1,5 +1,6 @@
-@import "tailwindcss";
-
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme" layer(theme);
+@import "tailwindcss/utilities" layer(utilities);
 @theme {
     --color-primary-light: #0B57D0;
     --color-primary-light-text: #FFFFFF;

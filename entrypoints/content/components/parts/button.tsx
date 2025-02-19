@@ -5,7 +5,7 @@ const Button: React.FC<PresetButtonProps> = ({ children, ...props }) => {
 		<button
 			{...props}
 			type="button"
-			className={`rounded-3xl px-[12px] py-2 whitespace-nowrap overflow-hidden overflow-ellipsis bg-content-light dark:bg-content-dark hover:bg-highlight-light dark:hover:bg-highlight-dark ${props.className}`}
+			className={`rounded-3xl px-[12px] py-2 border-none whitespace-nowrap overflow-hidden overflow-ellipsis bg-content-light dark:bg-content-dark hover:bg-highlight-light dark:hover:bg-highlight-dark ${props.className}`}
 		>
 			{children}
 		</button>

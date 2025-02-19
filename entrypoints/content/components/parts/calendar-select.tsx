@@ -27,7 +27,7 @@ export const CalendarListBox: React.FC<Props> = ({
 		<Listbox multiple value={value} onChange={onChange}>
 			<ListboxButton
 				className={
-					"relative w-full cursor-default py-2 pl-3 pr-10 text-left dark:bg-[#333537] shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
+					"relative w-full cursor-default py-2 pl-3 pr-10 border-none text-left dark:bg-[#333537] shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
 				}
 			>
 				<span className="block truncate">{`${value.length} calendars`}</span>
