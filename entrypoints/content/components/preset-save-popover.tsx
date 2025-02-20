@@ -131,7 +131,7 @@ const PresetSavePopover: React.FC<PresetSavePopoverProps> = ({
 										</div>
 										<div className="flex justify-end pt-3">
 											<Button
-												className="bg-primary-light dark:bg-primary-dark hover:bg-primary-light dark:hover:bg-primary-dark text-primary-light-text dark:text-primary-dark-text"
+												className="bg-primary-light dark:bg-primary-dark hover:bg-primary-light dark:hover:bg-primary-dark/95 text-primary-light-text dark:text-primary-dark-text"
 												onClick={() => {
 													// TODO: Show error message when title is empty
 													if (!title) return;

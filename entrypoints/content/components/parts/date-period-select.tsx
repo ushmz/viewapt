@@ -1,4 +1,7 @@
-import { ChevronDown } from "@/entrypoints/content/components/parts/icon";
+import {
+	Check,
+	ChevronDown,
+} from "@/entrypoints/content/components/parts/icon";
 import { DatePeriod, ViewKey } from "@/types/calendar";
 import {
 	Listbox,
@@ -27,7 +30,7 @@ export const DatePeriodListBox: React.FC<Props> = ({ value, onChange }) => {
 		<Listbox value={value} onChange={onChange}>
 			<ListboxButton
 				className={
-					"relative w-full cursor-default py-2 pl-3 pr-10 border-none text-left dark:bg-[#333537] shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
+					"relative w-full cursor-default py-2 pl-3 pr-10 border-none text-left bg-content-light dark:bg-content-dark hover:bg-highlight-light hover:dark:bg-highlight-dark shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
 				}
 			>
 				<span className="block truncate">
@@ -43,21 +46,28 @@ export const DatePeriodListBox: React.FC<Props> = ({ value, onChange }) => {
 				leaveFrom="opacity-100"
 				leaveTo="opacity-0"
 			>
-				<ListboxOptions className="absolute max-h-60 max-w-60 overflow-auto text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
+				<ListboxOptions className="absolute max-h-60 max-w-60 overflow-auto z-6000 rounded-sm bg-background-light dark:bg-menu-item-dark drop-shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
 					{Object.entries(datePeriods).map(([key, period]) => (
 						<ListboxOption
 							key={key}
 							value={period}
 							className={(bag) =>
-								`relative cursor-default select-none py-2 pl-10 pr-4 z-6000 dark:bg-[#1e1f20] ${bag.focus ? "dark:bg-[#414345]" : ""}`
+								`relative cursor-default select-none py-2 pl-10 pr-4 drop-shadow-lg ${bag.focus ? "bg-content-light dark:bg-content-dark" : ""}`
 							}
 						>
 							{({ selected }) => (
-								<span
-									className={`block truncate ${selected ? "font-medium" : "font-normal"}`}
-								>
-									{i18n.t(`viewKey.${period}`)}
-								</span>
+								<div>
+									{selected ? (
+										<span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
+											<Check />
+										</span>
+									) : null}
+									<span
+										className={`block truncate ${selected ? "font-semibold" : "font-medium"}`}
+									>
+										{i18n.t(`viewKey.${period}`)}
+									</span>
+								</div>
 							)}
 						</ListboxOption>
 					))}
