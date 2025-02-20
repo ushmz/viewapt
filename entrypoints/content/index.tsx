@@ -1,4 +1,4 @@
-import { PresetSelector } from "@/entrypoints/content/ui.tsx";
+import { PresetButtonGroup } from "@/entrypoints/content/ui.tsx";
 import ReactDOM from "react-dom/client";
 import "@/assets/tailwind.css";
 import "@/entrypoints/content/content.css";
@@ -12,7 +12,7 @@ export default defineContentScript({
 			append: "before",
 			onMount: (container) => {
 				const root = ReactDOM.createRoot(container);
-				root.render(<PresetSelector />);
+				root.render(<PresetButtonGroup />);
 
 				return root;
 			},

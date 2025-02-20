@@ -1,6 +1,7 @@
 import Button from "@/entrypoints/content/components/parts/button";
 import { CalendarListBox } from "@/entrypoints/content/components/parts/calendar-select";
 import { DatePeriodListBox } from "@/entrypoints/content/components/parts/date-period-select";
+import { ChevronDown } from "@/entrypoints/content/components/parts/icon";
 import { Calendar, DatePeriod } from "@/types/calendar";
 import { PresetKey } from "@/utils/storage";
 import {
@@ -13,8 +14,6 @@ import { i18n } from "#i18n";
 import React, { Fragment } from "react";
 
 type PresetSavePopoverProps = {
-	children?: React.ReactNode;
-} & {
 	calendars: Calendar[];
 	getSelectedCalendars: () => Calendar[];
 	getCurrentView: () => DatePeriod;
@@ -22,7 +21,6 @@ type PresetSavePopoverProps = {
 };
 
 const PresetSavePopover: React.FC<PresetSavePopoverProps> = ({
-	children,
 	calendars,
 	getSelectedCalendars,
 	getCurrentView,
@@ -45,7 +43,10 @@ const PresetSavePopover: React.FC<PresetSavePopoverProps> = ({
 								setDatePeriod(getCurrentView());
 							}}
 						>
-							{children}
+							<span>{i18n.t("presets.save")}</span>
+							<span className="pl-2">
+								<ChevronDown />
+							</span>
 						</PopoverButton>
 						<Transition
 							as={Fragment}

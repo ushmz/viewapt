@@ -1,4 +1,4 @@
-import { CalendarDom } from "@/types/calendar";
+import { Calendar as ICalendar, CalendarDom } from "@/types/calendar";
 
 class Calendar implements CalendarDom {
 	constructor(private element: Element) {}
@@ -59,7 +59,7 @@ class Calendar implements CalendarDom {
 		}
 	}
 
-	toJSON() {
+	toJSON(): ICalendar {
 		return { id: this.id, name: this.name };
 	}
 }

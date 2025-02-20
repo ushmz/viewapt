@@ -1,15 +1,16 @@
 import Button from "@/entrypoints/content/components/parts/button";
-import { ChevronDown } from "@/entrypoints/content/components/parts/icon";
 import PresetSavePopover from "@/entrypoints/content/components/preset-save-popover";
 import {
 	clearCalendars,
 	getAllCalendars,
+	getCalendarListDom,
 	getSelectedCalendars,
 } from "@/entrypoints/content/dom/calendars";
 import {
 	getCurrentView,
 	selectView,
 } from "@/entrypoints/content/dom/view-menu-items";
+import { useChildElementCountObserver } from "@/entrypoints/content/hooks/use-child-element-count-observer";
 import { Calendar, CalendarViewPreset, DatePeriod } from "@/types/calendar";
 import { sleep } from "@/utils/sleep";
 import { loadPresets, SaveData } from "@/utils/storage";
@@ -32,26 +33,27 @@ const applyPreset = async ({
 	selectView(datePeriod);
 };
 
-type PresetSelectorProps = {};
-
-export const PresetSelector: React.FC<PresetSelectorProps> = ({}) => {
-	const [calendars, setCalendars] = React.useState<Calendar[]>([]);
-
-	const [activePreset, setActivePreset] =
-		React.useState<CalendarViewPreset | null>(null);
-	const [presets, setPresets] = React.useState<SaveData>({
+export const PresetButtonGroup: React.FC = () => {
+	const [calendars, setCalendars] = useState<Calendar[]>([]);
+	const [activePreset, setActivePreset] = useState<CalendarViewPreset | null>(
+		null,
+	);
+	const [presets, setPresets] = useState<SaveData>({
 		primary: null,
 		secondary: null,
 		tertiary: null,
 	});
 
-	const load = async () => {
+	const loadCalendars = () => {
 		const { myCalendars, otherCalendars } = getAllCalendars();
-		setCalendars([
+		const calendars = [
 			...myCalendars.map((cal) => cal.toJSON()),
 			...otherCalendars.map((cal) => cal.toJSON()),
-		]);
+		];
+		setCalendars(calendars);
+	};
 
+	const loadPreset = async () => {
 		(async () => {
 			const presets = await loadPresets();
 			if (!presets) return;
@@ -61,8 +63,12 @@ export const PresetSelector: React.FC<PresetSelectorProps> = ({}) => {
 	};
 
 	useEffect(() => {
-		load();
+		loadPreset();
 	}, [activePreset]);
+
+	const { myCalendarList, otherCalendarList } = getCalendarListDom();
+	useChildElementCountObserver(myCalendarList, () => loadCalendars());
+	useChildElementCountObserver(otherCalendarList, () => loadCalendars());
 
 	return (
 		<div
@@ -105,13 +111,8 @@ export const PresetSelector: React.FC<PresetSelectorProps> = ({}) => {
 					getSelectedCalendars().map((cal) => cal.toJSON())
 				}
 				getCurrentView={() => getCurrentView() || "day"}
-				onConfirm={load}
-			>
-				<span>{i18n.t("presets.save")}</span>
-				<span className="pl-2">
-					<ChevronDown />
-				</span>
-			</PresetSavePopover>
+				onConfirm={loadPreset}
+			/>
 		</div>
 	);
 };

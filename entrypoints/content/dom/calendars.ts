@@ -1,5 +1,25 @@
 import { Calendar } from "@/entrypoints/content/dom/calendar.ts";
 
+export const getCalendarListDom = () => {
+	const calendarListsDiv = document.querySelector('div[role="complementary"]');
+	if (!calendarListsDiv) {
+		return { myCalendarList: null, otherCalendarList: null };
+	}
+
+	const calendarLists = calendarListsDiv.querySelectorAll(
+		'div[aria-label][role="list"]',
+	);
+
+	if (calendarLists.length !== 2) {
+		return { myCalendarList: null, otherCalendarList: null };
+	}
+
+	return {
+		myCalendarList: calendarLists.item(0),
+		otherCalendarList: calendarLists.item(1),
+	};
+};
+
 export const getAllCalendars = (): {
 	myCalendars: Calendar[];
 	otherCalendars: Calendar[];
@@ -13,6 +33,10 @@ export const getAllCalendars = (): {
 		'div[aria-label][role="list"]',
 	);
 
+	if (calendarLists.length !== 2) {
+		return { myCalendars: [], otherCalendars: [] };
+	}
+
 	const isValidCalendarElement = (element: Element) => {
 		const isHTMLElement = element instanceof HTMLElement;
 		const isDiv = element.tagName === "DIV";
@@ -20,10 +44,12 @@ export const getAllCalendars = (): {
 		return isHTMLElement && isDiv && hasRolePresentation;
 	};
 
-	const myCalendars = Array.from(calendarLists.item(0).children)
+	const { myCalendarList, otherCalendarList } = getCalendarListDom();
+
+	const myCalendars = Array.from(myCalendarList?.children ?? [])
 		.filter(isValidCalendarElement)
 		.map((elem) => new Calendar(elem));
-	const otherCalendars = Array.from(calendarLists.item(1).children)
+	const otherCalendars = Array.from(otherCalendarList?.children ?? [])
 		.filter(isValidCalendarElement)
 		.map((elem) => new Calendar(elem));
 
