@@ -53,6 +53,6 @@ export type DatePeriod = Lowercase<ViewKey>;
  */
 export interface CalendarViewPreset {
 	name: string;
-	calendars: Calendar[];
+	calendars: string[];
 	datePeriod: DatePeriod;
 }

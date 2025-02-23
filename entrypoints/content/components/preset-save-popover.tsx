@@ -138,7 +138,7 @@ const PresetSavePopover: React.FC<PresetSavePopoverProps> = ({
 
 													savePreset(presetKey, {
 														name: title,
-														calendars: choicedCalendars,
+														calendars: choicedCalendars.map((cal) => cal.id),
 														datePeriod,
 													})
 														.then(() => {

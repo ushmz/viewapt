@@ -17,16 +17,15 @@ import { loadPresets, SaveData } from "@/utils/storage";
 import React from "react";
 
 const applyPreset = async ({
-	calendars,
+	calendars: calendarIDs,
 	datePeriod,
-}: { calendars: Calendar[]; datePeriod: DatePeriod }) => {
-	const targets = calendars.map((cal) => cal.name).filter((name) => name);
+}: { calendars: string[]; datePeriod: DatePeriod }) => {
 	const { myCalendars, otherCalendars } = getAllCalendars();
 	clearCalendars([...myCalendars, ...otherCalendars]);
 	await sleep(100);
 	[...myCalendars, ...otherCalendars]
 		.filter((cal) => {
-			return cal.name && targets.includes(cal.name);
+			return cal.id && calendarIDs.includes(cal.id);
 		})
 		.forEach((cal) => cal.show());
 	await sleep(100);
