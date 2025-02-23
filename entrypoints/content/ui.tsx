@@ -1,36 +1,12 @@
 import Button from "@/entrypoints/content/components/elements/button";
 import PresetSavePopover from "@/entrypoints/content/components/preset-save-popover";
-import {
-	clearCalendars,
-	getAllCalendars,
-	getCalendarListDom,
-	getSelectedCalendars,
-} from "@/entrypoints/content/dom/calendars";
-import {
-	getCurrentView,
-	selectView,
-} from "@/entrypoints/content/dom/view-menu-items";
+import { getAllCalendars, getCalendarListDom, getSelectedCalendars } from "@/entrypoints/content/dom/calendars";
+import { getCurrentView } from "@/entrypoints/content/dom/view-menu-items";
 import { useChildElementCountObserver } from "@/entrypoints/content/hooks/use-child-element-count-observer";
-import { Calendar, CalendarViewPreset, DatePeriod } from "@/types/calendar";
-import { sleep } from "@/utils/sleep";
+import { Calendar, CalendarViewPreset } from "@/types/calendar";
 import { loadPresets, SaveData } from "@/utils/storage";
 import React from "react";
-
-const applyPreset = async ({
-	calendars: calendarIDs,
-	datePeriod,
-}: { calendars: string[]; datePeriod: DatePeriod }) => {
-	const { myCalendars, otherCalendars } = getAllCalendars();
-	clearCalendars([...myCalendars, ...otherCalendars]);
-	await sleep(100);
-	[...myCalendars, ...otherCalendars]
-		.filter((cal) => {
-			return cal.id && calendarIDs.includes(cal.id);
-		})
-		.forEach((cal) => cal.show());
-	await sleep(100);
-	selectView(datePeriod);
-};
+import { applyPreset } from "./dom/preset";
 
 export const PresetButtonGroup: React.FC = () => {
 	const [calendars, setCalendars] = useState<Calendar[]>([]);
