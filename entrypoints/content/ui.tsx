@@ -1,4 +1,4 @@
-import Button from "@/entrypoints/content/components/parts/button";
+import Button from "@/entrypoints/content/components/elements/button";
 import PresetSavePopover from "@/entrypoints/content/components/preset-save-popover";
 import {
 	clearCalendars,

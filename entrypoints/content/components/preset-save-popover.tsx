@@ -1,7 +1,7 @@
-import Button from "@/entrypoints/content/components/parts/button";
+import Button from "@/entrypoints/content/components/elements/button";
 import { CalendarListBox } from "@/entrypoints/content/components/parts/calendar-select";
 import { DatePeriodListBox } from "@/entrypoints/content/components/parts/date-period-select";
-import { ChevronDown } from "@/entrypoints/content/components/parts/icon";
+import { ChevronDown } from "@/entrypoints/content/components/elements/icon";
 import { Calendar, DatePeriod } from "@/types/calendar";
 import { PresetKey } from "@/utils/storage";
 import {
@@ -37,7 +37,7 @@ const PresetSavePopover: React.FC<PresetSavePopoverProps> = ({
 				{({ open }) => (
 					<>
 						<PopoverButton
-							className={`group flex items-center h-[36px] border-none hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75 rounded-3xl px-[12px] bg-content-light dark:bg-content-dark hover:bg-highlight-light dark:hover:bg-highlight-dark`}
+							className={`group flex items-center h-[36px] border-none focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75 rounded-3xl px-[12px] bg-content-light dark:bg-content-dark hover:bg-highlight-light dark:hover:bg-highlight-dark`}
 							onClick={() => {
 								setChoicedCalendars(getSelectedCalendars());
 								setDatePeriod(getCurrentView());
@@ -57,9 +57,9 @@ const PresetSavePopover: React.FC<PresetSavePopoverProps> = ({
 							leaveFrom="opacity-100 translate-y-0"
 							leaveTo="opacity-0 translate-y-1"
 						>
-							<PopoverPanel className="absolute left-1/2 z-9999 mt-2 rounded-3xl w-screen max-w-sm -translate-x-1/2 transform dark:bg-[#1e1f20]">
+							<PopoverPanel className="absolute left-1/2 z-9999 mt-2 rounded-3xl w-screen max-w-sm -translate-x-1/2 transform bg-container-light dark:bg-background-dark">
 								{({ close }) => (
-									<div className="overflow-hidden ring-1 ring-black/5 px-7 pt-7 pb-5">
+									<div className="px-7 pt-7 pb-5">
 										<div className="relative grid grid-flow-row gap-8 pb-2">
 											<div>
 												<input

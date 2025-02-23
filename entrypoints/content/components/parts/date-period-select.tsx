@@ -1,7 +1,7 @@
 import {
 	Check,
 	ChevronDown,
-} from "@/entrypoints/content/components/parts/icon";
+} from "@/entrypoints/content/components/elements/icon";
 import { DatePeriod, ViewKey } from "@/types/calendar";
 import {
 	Listbox,
@@ -29,9 +29,11 @@ export const DatePeriodListBox: React.FC<Props> = ({ value, onChange }) => {
 	return (
 		<Listbox value={value} onChange={onChange}>
 			<ListboxButton
-				className={
-					"relative w-full cursor-default py-2 pl-3 pr-10 border-none text-left bg-content-light dark:bg-content-dark hover:bg-highlight-light hover:dark:bg-highlight-dark shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
-				}
+				className={[
+					"relative w-full py-2 pl-3 pr-10",
+					"bg-content-light dark:bg-content-dark hover:bg-highlight-light hover:dark:bg-highlight-dark",
+					"border-none text-left cursor-default focus:outline-none",
+				].join(" ")}
 			>
 				<span className="block truncate">
 					{i18n.t(`viewKey.${value ?? "day"}`)}
@@ -46,13 +48,22 @@ export const DatePeriodListBox: React.FC<Props> = ({ value, onChange }) => {
 				leaveFrom="opacity-100"
 				leaveTo="opacity-0"
 			>
-				<ListboxOptions className="absolute max-h-60 max-w-60 overflow-auto z-6000 rounded-sm bg-background-light dark:bg-menu-item-dark drop-shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
+				<ListboxOptions
+					className={[
+						"absolute max-h-60 max-w-60",
+						"overflow-auto z-6000 rounded-sm drop-shadow-md focus:outline-none sm:text-sm",
+						"bg-menu-item-light dark:bg-menu-item-dark",
+					].join(" ")}
+				>
 					{Object.entries(datePeriods).map(([key, period]) => (
 						<ListboxOption
 							key={key}
 							value={period}
 							className={(bag) =>
-								`relative cursor-default select-none py-2 pl-10 pr-4 drop-shadow-lg ${bag.focus ? "bg-content-light dark:bg-content-dark" : ""}`
+								[
+									"relative cursor-default select-none py-2 pr-4 pl-10",
+									bag.focus ? "bg-content-light dark:bg-content-dark" : "",
+								].join(" ")
 							}
 						>
 							{({ selected }) => (
@@ -63,7 +74,7 @@ export const DatePeriodListBox: React.FC<Props> = ({ value, onChange }) => {
 										</span>
 									) : null}
 									<span
-										className={`block truncate ${selected ? "font-semibold" : "font-medium"}`}
+										className={`block truncate dark:${selected ? "font-semibold" : "font-medium"}`}
 									>
 										{i18n.t(`viewKey.${period}`)}
 									</span>

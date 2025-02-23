@@ -1,7 +1,7 @@
 import {
 	Check,
 	ChevronDown,
-} from "@/entrypoints/content/components/parts/icon";
+} from "@/entrypoints/content/components/elements/icon";
 import { Calendar } from "@/types/calendar";
 import {
 	Listbox,
@@ -27,7 +27,7 @@ export const CalendarListBox: React.FC<Props> = ({
 		<Listbox multiple value={value} onChange={onChange}>
 			<ListboxButton
 				className={
-					"relative w-full cursor-default py-2 pl-3 pr-10 border-none text-left bg-content-light dark:bg-content-dark hover:bg-highlight-light hover:dark:bg-highlight-dark shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
+					"relative w-full cursor-default py-2 pl-3 pr-10 border-none text-left bg-content-light dark:bg-content-dark hover:bg-highlight-light hover:dark:bg-highlight-dark focus:outline-none sm:text-sm"
 				}
 			>
 				<span className="block truncate">{`${value.length} calendars`}</span>
@@ -41,13 +41,13 @@ export const CalendarListBox: React.FC<Props> = ({
 				leaveFrom="opacity-100"
 				leaveTo="opacity-0"
 			>
-				<ListboxOptions className="absolute max-h-60 max-w-60 overflow-auto z-6000 rounded-sm bg-background-light dark:bg-menu-item-dark drop-shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
+				<ListboxOptions className="absolute max-h-60 max-w-60 overflow-auto z-6000 rounded-sm bg-menu-item-light dark:bg-menu-item-dark drop-shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
 					{calendars.map((v) => (
 						<ListboxOption
 							key={v.id}
 							value={v}
 							className={(bag) =>
-								`relative cursor-default select-none py-2 pl-10 pr-4 drop-shadow-lg ${bag.focus ? "bg-content-light dark:bg-content-dark" : ""}`
+								`relative cursor-default select-none py-2 pl-10 pr-4 ${bag.focus ? "bg-content-light dark:bg-content-dark" : ""}`
 							}
 						>
 							{({ selected }) => (
