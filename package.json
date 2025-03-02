@@ -15,17 +15,24 @@
 		"postinstall": "wxt prepare"
 	},
 	"dependencies": {
+		"@heroicons/react": "^2.2.0",
+		"@wxt-dev/i18n": "^0.2.3",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
 		"ts-pattern": "^5.6.2"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
+		"@headlessui/react": "^2.2.0",
+		"@tailwindcss/postcss": "^4.0.6",
 		"@types/chrome": "^0.0.280",
 		"@types/react": "^19.0.1",
 		"@types/react-dom": "^19.0.2",
 		"@wxt-dev/module-react": "^1.1.2",
+		"postcss": "^8.5.1",
+		"tailwindcss": "^4.0.6",
 		"typescript": "^5.6.3",
 		"wxt": "^0.19.13"
-	}
+	},
+	"packageManager": "pnpm@10.2.1+sha512.398035c7bd696d0ba0b10a688ed558285329d27ea994804a52bad9167d8e3a72bcb993f9699585d3ca25779ac64949ef422757a6c31102c12ab932e5cbe5cc92"
 }

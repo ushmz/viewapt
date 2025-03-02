@@ -1,0 +1,20 @@
+{
+  "viewKey": {
+    "day": "Day",
+    "week": "Week",
+    "month": "Month",
+    "year": "Year",
+    "agenda": "Agenda",
+    "custom_days": "Custom"
+  },
+  "presets": {
+    "primary": "Preset 1",
+    "secondary": "Preset 2",
+    "tertiary": "Preset 3",
+    "save": "Save"
+  },
+  "popover": {
+    "placeholder": "Add title",
+    "save": "Save"
+  }
+}
