@@ -4,4 +4,4 @@ Viewapt(/ˈvjuː.pt/): Switch views based on time or situation.
 
 ## Example
 
-[Example](./example/Screen_Recording_1741414470.mov)
+https://github.com/user-attachments/assets/c85256c1-67e9-453c-9a10-2024876c345d
